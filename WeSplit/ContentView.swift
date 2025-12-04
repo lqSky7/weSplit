@@ -65,12 +65,9 @@ struct ContentView: View {
                 .toolbar{
                     if(isInputFocused){
                         Button("Done"){
-                            isInputFocused = false
-                        }.buttonStyle(.glassProminent).tint(.black.opacity(0.7))
-                            
-                            
-                    }
+                            isInputFocused = false}.buttonStyle(.glassProminent).tint(.black.opacity(0.7))}
                 }
+                .scrollDismissesKeyboard(.immediately)
         }
     }
 }
