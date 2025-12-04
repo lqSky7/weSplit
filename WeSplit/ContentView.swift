@@ -11,6 +11,9 @@ struct ContentView: View {
     @State private var amount = 0.0;
     @State private var people = 2;
     @State private var tax = 0;
+    @FocusState private var isInputFocused: Bool
+    
+    
     var displayAbleAmount: Double {
         let peopleD = Double(people)
         let taxD = Double(tax)
@@ -27,7 +30,7 @@ struct ContentView: View {
         NavigationStack{
             Form{
                 Section{
-                    TextField("Enter the amount to be split: ", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD")).keyboardType(.decimalPad)
+                    TextField("Enter the amount to be split: ", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD")).keyboardType(.decimalPad).focused($isInputFocused)
                     
                     
                     
@@ -46,7 +49,7 @@ struct ContentView: View {
                             k in
                             Text("\(k)%")
                         }
-                    }.pickerStyle(.palette)
+                    }.pickerStyle(.segmented)
                 }
                 
               
@@ -59,6 +62,15 @@ struct ContentView: View {
                 
             }.navigationTitle("WeSplit")
                 .navigationBarTitleDisplayMode(.automatic)
+                .toolbar{
+                    if(isInputFocused){
+                        Button("Done"){
+                            isInputFocused = false
+                        }.buttonStyle(.glassProminent).tint(.black.opacity(0.7))
+                            
+                            
+                    }
+                }
         }
     }
 }
